@@ -20,8 +20,8 @@ const GetEvolution =
 	(customFetch = fetch) =>
 	(id: number): InterfaceGetEvolution => ({
 		queryKey: ['pokemon', id],
-		queryFn: async ({ queryKey }: { queryKey: [string, number] }): Promise<Array<Evolution>> => {
-			const [, id] = queryKey;
+		queryFn: async (): Promise<Array<Evolution>> => {
+			// const [, id] = queryKey;
 			const responseSpecies: BaseResponseSpecies = await fetcher(
 				customFetch,
 				`${PUBLIC_BASE_URL}/pokemon-species/${id}`

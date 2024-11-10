@@ -1,10 +1,14 @@
 export type Params = { limit: number; offset: number };
 
-type About = {
-	species: string;
+export type Ability = { name: string; hidden: boolean }
+
+export type Stat = { name: string; base_stat: number }
+
+export type About = {
+	species: BaseItem & { id: number };
 	height: number; // in decimeters
 	weight: number; // in hectograms
-	abilities: Array<{ name: string; hidden: boolean }>;
+	abilities: Array<Ability>;
 };
 
 export type Item = {
@@ -13,42 +17,36 @@ export type Item = {
 	types: Array<string>;
 	image: string;
 	about: About;
-	stats: Array<{ name: string; base_stat: number }>;
-	species: BaseItem;
+	stats: Array<Stat>;
 	moves: Array<string>;
+	color: string
 };
 
-export type BaseItem = {
-	name: string;
-	url: string;
-};
+export type BaseItem = { name: string; url: string; };
 
-export type BaseType = {
-	type: { name: string };
-};
+export type BaseType = { type: { name: string }; };
 
-export type BaseStat = {
-	base_stat: number;
-	stat: { name: string };
-};
+export type BaseStat = { base_stat: number; stat: { name: string }; };
 
-interface BaseSprite {
-	other?: {
-		'official-artwork'?: {
-			front_default?: string;
-		};
-	};
+export type BaseMove = { move: { name: string } }
+
+export type BaseAbility = { is_hidden: boolean; ability: { name: string; } }
+
+type BaseSprite = {
+	other?: { 'official-artwork'?: { front_default?: string; }; };
 }
 
 export type BaseDetail = {
 	id: number;
 	name: string;
+	height: number;
+	weight: number;
 	types: Array<BaseType>;
 	sprites: BaseSprite;
-	about: About;
 	stats: Array<BaseStat>;
 	species: BaseItem;
-	moves: Array<string>;
+	moves: Array<BaseMove>;
+	abilities: Array<BaseAbility>;
 };
 
 export interface Response<Model> {
