@@ -21,7 +21,9 @@
 	});
 
 	const _onClose = () => {
-		dialogElement.close();
+		if (dialogElement) {
+			dialogElement.close();
+		}
 		if (onclose) {
 			onclose();
 		}
@@ -41,7 +43,7 @@
 	{#if closable}
 		<div class="fixed right-6 top-4 z-10">
 			<button
-				class="flex h-6 w-6 items-center justify-center rounded-full bg-white border border-gray-300"
+				class="flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 bg-white"
 				onclick={_onClose}
 			>
 				<X size={16} />
@@ -54,12 +56,13 @@
 </dialog>
 
 <style>
-	dialog::backdrop{
+	dialog::backdrop {
 		background-color: rgba(0, 0, 0, 0.5);
 		padding: 0;
 	}
-	dialog{
-		width: 100%; max-width: 100%;
+	dialog {
+		width: 100%;
+		max-width: 100%;
 	}
 	dialog[open] {
 		animation: zoom 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
