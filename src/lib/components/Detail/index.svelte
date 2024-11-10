@@ -38,7 +38,7 @@
 </script>
 
 <div class="h-full overflow-hidden shadow-lg">
-	<div class="h-full {data?.color} overflow-y-scroll text-white">
+	<div class="h-full {data?.color} overflow-y-auto">
 		<div class="flex justify-between gap-4 px-8 pt-8">
 			<div>
 				<h2 class="prose prose-xl font-bold text-white">
@@ -54,7 +54,7 @@
 			</div>
 
 			<div class="self-center">
-				<span class="text-md">#{data?.id.toString().padStart(3, '0')}</span>
+				<span class="prose prose-lg text-white">#{data?.id.toString().padStart(3, '0')}</span>
 			</div>
 		</div>
 		<div class="-mb-8 flex w-full justify-center">
@@ -70,7 +70,7 @@
 				</TabItem>
 				<TabItem {activeTab} key="evolution">
 					{#if data}
-						<EvolutionTab id={data?.about.species.id} />
+						<EvolutionTab id={data?.about.species.id} current={data?.about.species.name} />
 					{/if}
 				</TabItem>
 				<TabItem {activeTab} key="moves">

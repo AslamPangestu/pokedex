@@ -6,8 +6,10 @@
 
 <div class="grid grid-cols-2 gap-4">
 	{#each data || [] as item}
-		<div class="card">
-			{capitalizeFirstLetters(dashToSpace(item))}
+		<div class="card text-center">
+			<span class="prose prose-base text-gray-800 font-bold">
+				{capitalizeFirstLetters(dashToSpace(item))}
+			</span>
 		</div>
 	{/each}
 </div>

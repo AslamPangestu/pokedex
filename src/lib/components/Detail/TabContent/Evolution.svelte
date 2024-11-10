@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { capitalizeFirstLetters, dashToSpace } from '$lib/index';
 	import { useQueryClient } from '@tanstack/svelte-query';
+	import { ArrowDown, CheckCircle } from 'lucide-svelte';
 
 	import Loader from '$lib/components/Loader.svelte';
 
 	import GetEvolution from '$lib/services/get-evolution';
 	import type { Evolution } from '$lib/services/get-evolution/types';
 
-	let { id }: { id: number | undefined } = $props();
+	let { id, current }: { id: number | undefined; current: string | undefined } = $props();
 
 	const client = useQueryClient();
 
@@ -24,7 +25,10 @@
 				query.isLoading = true;
 				query.data = null;
 				const response = await client.fetchQuery(GetEvolution(fetch)(id || 0));
-				query.data = response;
+				query.data = response.map((item: Evolution) => ({
+					...item,
+					current: item.name === current
+				}));
 				query.isSuccess = true;
 				query.isLoading = false;
 			} catch (error) {
@@ -40,16 +44,24 @@
 	<Loader />
 {/if}
 {#if query.error}
-	<span>Error: {query.error.message}</span>
+<span class="text-red-500 font-bold">Error: {$query.error.message}</span>
 {/if}
 {#if query.isSuccess}
 	<div class="flex flex-col gap-4">
 		{#each query.data || [] as item, index}
-			<div class="card">
-				{capitalizeFirstLetters(dashToSpace(item.name))}
+			<div class="card flex justify-between gap-4">
+				<span class="prose prose-base font-bold text-gray-800">
+					{capitalizeFirstLetters(dashToSpace(item.name))}
+				</span>
+				{#if item.current}
+					<span class="self-center text-green-500">
+						<CheckCircle />
+					</span>
+				{/if}
 			</div>
+
 			{#if query.data && index !== query.data.length - 1}
-				<div>Panah</div>
+				<div class="flex justify-center"><ArrowDown /></div>
 			{/if}
 		{/each}
 	</div>

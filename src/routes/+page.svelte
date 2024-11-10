@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { createInfiniteQuery } from '@tanstack/svelte-query';
 	import type { CreateInfiniteQueryResult, InfiniteData } from '@tanstack/svelte-query';
+	import { ArrowLeft } from 'lucide-svelte';
 
 	import Card from '$lib/components/Card.svelte';
 	import Detail from '$lib/components/Detail/index.svelte';
@@ -66,33 +67,35 @@
 	>
 		<button
 			onclick={_onCloseDetail}
-			class="rounded-full bg-blue-500 px-4 py-2 font-bold text-white shadow-lg hover:bg-blue-600"
+			class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500 font-bold text-white shadow-lg hover:bg-blue-400"
 		>
-			X
+			<ArrowLeft />
 		</button>
 	</div>
 {/if}
 
 {#if isModalDetail}
-	<Modal showModal={isModalDetail}>
+	<Modal showModal={isModalDetail} onclose={_onCloseDetail} closable>
 		<Detail data={detail.data} />
 	</Modal>
 {/if}
 
-<div class="flex max-w-screen-xl flex-row">
+<div class="flex max-w-screen-xl w-full flex-row">
 	{#if isPageDetail}
-		<div class="basis-1/2 lg:basis-1/3"><Detail data={detail.data} /></div>
+		<div class="basis-1/2 lg:basis-1/3">
+			<Detail data={detail.data} />
+		</div>
 	{/if}
 	<div
 		bind:this={mainElement}
 		onscroll={_onScroll}
-		class="{isPageDetail ? 'basis-1/2 lg:basis-2/3' : 'basis-1/1'} overflow-y-scroll"
+		class="{isPageDetail ? 'basis-1/2 lg:basis-2/3' : 'basis-1/1'} overflow-y-auto"
 	>
 		<h1 class="prose prose-2xl mb-8 px-8 pt-8 font-bold">Pokedex</h1>
 
 		<section class="px-8 pb-8">
 			{#if $query.error}
-				<span>Error: {$query.error.message}</span>
+				<span class="text-red-500 font-bold">Error: {$query.error.message}</span>
 			{/if}
 			{#if $query.isSuccess}
 				<div

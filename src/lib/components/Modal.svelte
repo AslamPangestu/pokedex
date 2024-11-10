@@ -1,31 +1,66 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
+	import { X } from 'lucide-svelte';
 
-	let { showModal, children }: { showModal: boolean; children: Snippet<[]> } = $props();
+	let {
+		showModal,
+		children,
+		closable = false,
+		onclose
+	}: {
+		showModal: boolean;
+		children: Snippet<[]>;
+		closable?: boolean;
+		onclose?: () => void;
+	} = $props();
 
 	let dialogElement: HTMLDialogElement;
 
 	$effect(() => {
 		if (showModal) dialogElement.showModal();
 	});
+
+	const _onClose = () => {
+		dialogElement.close();
+		if (onclose) {
+			onclose();
+		}
+	};
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
-	class="m-0 h-screen w-screen overflow-visible p-0"
+	class="m-0 overflow-visible p-0"
 	bind:this={dialogElement}
-	onclose={() => (showModal = false)}
+	onclose={_onClose}
 	onclick={(e) => {
 		if (e.target === dialogElement) dialogElement.close();
 	}}
 >
+	{#if closable}
+		<div class="fixed right-6 top-4 z-10">
+			<button
+				class="flex h-6 w-6 items-center justify-center rounded-full bg-white border border-gray-300"
+				onclick={_onClose}
+			>
+				<X size={16} />
+			</button>
+		</div>
+	{/if}
 	<div class="h-screen w-screen">
 		{@render children()}
 	</div>
 </dialog>
 
 <style>
+	dialog::backdrop{
+		background-color: rgba(0, 0, 0, 0.5);
+		padding: 0;
+	}
+	dialog{
+		width: 100%; max-width: 100%;
+	}
 	dialog[open] {
 		animation: zoom 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
 	}
