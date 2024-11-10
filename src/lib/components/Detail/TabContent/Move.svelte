@@ -4,7 +4,7 @@
 	let { data }: { data: Array<string> | undefined } = $props();
 </script>
 
-<div class="grid grid-cols-2 gap-4">
+<div data-testid="detail-move-component" class="grid grid-cols-2 gap-4">
 	{#each data || [] as item}
 		<div class="card text-center">
 			<span class="prose prose-base text-gray-800 font-bold">

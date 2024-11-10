@@ -17,7 +17,7 @@
 	let dialogElement: HTMLDialogElement;
 
 	$effect(() => {
-		if (showModal) dialogElement.showModal();
+		if (showModal && dialogElement) dialogElement.showModal();
 	});
 
 	const _onClose = () => {
@@ -33,6 +33,7 @@
 <!-- svelte-ignore a11y_click_events_have_key_events -->
 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
 <dialog
+	data-testid="modal-component"
 	class="m-0 overflow-visible p-0"
 	bind:this={dialogElement}
 	onclose={_onClose}
@@ -43,6 +44,7 @@
 	{#if closable}
 		<div class="fixed right-6 top-4 z-10">
 			<button
+				data-testid="close-modal"
 				class="flex h-6 w-6 items-center justify-center rounded-full border border-gray-300 bg-white"
 				onclick={_onClose}
 			>
@@ -57,7 +59,6 @@
 
 <style>
 	dialog::backdrop {
-		background-color: rgba(0, 0, 0, 0.5);
 		padding: 0;
 	}
 	dialog {

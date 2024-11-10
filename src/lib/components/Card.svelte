@@ -12,7 +12,7 @@
 		$props();
 </script>
 
-<button class="rounded-3xl p-4 text-left {color} hover:opacity-80 shadow-lg" {onclick}>
+<button data-testid="card-component" class="rounded-3xl p-4 text-left {color} hover:opacity-80 shadow-lg" {onclick}>
 	<div class="flex flex-col gap-2">
 		<h2 class="prose prose-xl font-bold text-white">{capitalizeFirstLetters(name)}</h2>
 		<div class="grid grid-cols-2 gap-4">

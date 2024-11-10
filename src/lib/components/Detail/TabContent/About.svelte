@@ -48,7 +48,7 @@
 	]);
 </script>
 
-<section class="my-4 flex flex-col gap-2">
+<section data-testid="detail-about-component" class="my-4 flex flex-col gap-2">
 	{#each fields as field}
 		<div class="flex gap-2">
 			<span class="prose prose-base basis-1/4 text-gray-400">{field.label}</span>

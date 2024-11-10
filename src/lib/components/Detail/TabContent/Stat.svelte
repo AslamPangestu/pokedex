@@ -8,7 +8,7 @@
 	let { data }: { data: Array<Stat> | undefined } = $props();
 </script>
 
-<section class="my-4 flex flex-col gap-2">
+<section data-testid="detail-stat-component" class="my-4 flex flex-col gap-2">
 	{#each data || [] as item}
 		<div class="flex gap-2">
 			<span class="prose prose-base basis-2/5 text-gray-400"
