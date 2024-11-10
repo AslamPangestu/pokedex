@@ -93,7 +93,7 @@
 	>
 		<h1 class="prose prose-2xl mb-8 px-8 pt-8 font-bold">Pokedex</h1>
 
-		<section class="px-8 pb-8">
+		<section data-testid="main-component" class="px-8 pb-8">
 			{#if $query.error}
 				<span class="text-red-500 font-bold">Error: {$query.error.message}</span>
 			{/if}
