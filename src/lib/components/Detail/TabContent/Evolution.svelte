@@ -44,7 +44,7 @@
 	<Loader />
 {/if}
 {#if query.error}
-<span class="text-red-500 font-bold">Error: {$query.error.message}</span>
+<span class="text-red-500 font-bold">Error: {query.error.message}</span>
 {/if}
 {#if query.isSuccess}
 	<div class="flex flex-col gap-4">
